@@ -1,4 +1,9 @@
 package projeto.api.utils.domain.user;
 
-public record UserRegisterData(String name, String email, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record UserRegisterData(
+        @NotBlank String name,
+        @NotBlank String email,
+        @NotBlank String password) {
 }
