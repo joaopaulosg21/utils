@@ -20,7 +20,7 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<?> login(@Valid @RequestBody LoginData data) {
-        var authToken = new UsernamePasswordAuthenticationToken(data.email(),data.password());
+        var authToken = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = manager.authenticate(authToken);
 
         return ResponseEntity.ok(auth);

@@ -1,6 +1,7 @@
 package projeto.api.utils.infra.exception;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +31,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> notFoundExceptionHandler(NotFoundException exc) {
         DefaultExceptionResponse response = new DefaultExceptionResponse(LocalDateTime.now(), 404, exc.getMessage());
         return ResponseEntity.status(404).body(response);
+    }
+
+    @ExceptionHandler({BadCredentialsException.class})
+    public ResponseEntity<?> badCredentialsExceptionHandler(BadCredentialsException exc) {
+        String message = "Incorrect email or password!";
+        DefaultExceptionResponse response = new DefaultExceptionResponse(LocalDateTime.now(), 401, message);
+        return ResponseEntity.status(401).body(response);
     }
 }
 

@@ -1,12 +1,12 @@
 package projeto.api.utils.infra.security.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import projeto.api.utils.domain.user.UserRepository;
-import projeto.api.utils.infra.exception.AuthException;
 
 @Service
 public class AuthenticationService implements UserDetailsService {
@@ -16,6 +16,6 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(() -> new AuthException("Incorrect Email or password"));
+        return userRepository.findByEmail(username).orElseThrow(() -> new BadCredentialsException(""));
     }
 }
