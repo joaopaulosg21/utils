@@ -25,6 +25,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(
                 erros.stream().map(FieldExceptionResponse::new).toList());
     }
+
+    @ExceptionHandler({NotFoundException.class})
+    public ResponseEntity<?> notFoundExceptionHandler(NotFoundException exc) {
+        DefaultExceptionResponse response = new DefaultExceptionResponse(LocalDateTime.now(), 404, exc.getMessage());
+        return ResponseEntity.status(404).body(response);
+    }
 }
 
 record DefaultExceptionResponse(LocalDateTime timestamp,
