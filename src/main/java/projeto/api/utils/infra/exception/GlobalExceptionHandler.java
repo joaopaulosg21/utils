@@ -39,6 +39,12 @@ public class GlobalExceptionHandler {
         DefaultExceptionResponse response = new DefaultExceptionResponse(LocalDateTime.now(), 401, message);
         return ResponseEntity.status(401).body(response);
     }
+
+    @ExceptionHandler({TokenValidationException.class})
+    public ResponseEntity<?> tokenValidationExceptionHandler(TokenValidationException exc) {
+        DefaultExceptionResponse response = new DefaultExceptionResponse(LocalDateTime.now(), 401, exc.getMessage());
+        return ResponseEntity.status(401).body(response);
+    }
 }
 
 record DefaultExceptionResponse(LocalDateTime timestamp,
