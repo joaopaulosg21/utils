@@ -1,11 +1,9 @@
 package projeto.api.utils.domain.list;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import projeto.api.utils.domain.list.validations.ShoppingListValidations;
 import projeto.api.utils.domain.user.User;
-import projeto.api.utils.domain.user.UserDataDetails;
 import projeto.api.utils.infra.exception.NotFoundException;
 
 import java.util.List;
