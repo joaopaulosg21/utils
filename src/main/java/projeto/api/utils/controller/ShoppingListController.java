@@ -12,6 +12,7 @@ import projeto.api.utils.domain.list.ShoppingListService;
 import projeto.api.utils.domain.user.User;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/list")
@@ -31,5 +32,10 @@ public class ShoppingListController {
     @GetMapping("/{id}")
     public ResponseEntity<ListDataDetails> findById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(service.findListByIdAndUser(id, user));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<ListDataDetails>> findAllByUser(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(service.findAllByUser(user));
     }
 }

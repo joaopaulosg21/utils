@@ -34,4 +34,8 @@ public class ShoppingListService {
         return new ListDataDetails(shoppingList);
     }
 
+    public List<ListDataDetails> findAllByUser(User user) {
+        return repository.findAllByUser(user).stream().map(ListDataDetails::new).toList();
+    }
+
 }
