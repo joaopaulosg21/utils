@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import projeto.api.utils.domain.user.*;
 
@@ -50,6 +51,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void getUserByIdTest() throws Exception{
         Long id = 1L;
         UserDataDetails details = new UserDataDetails(1L,"test","test@email.com");
