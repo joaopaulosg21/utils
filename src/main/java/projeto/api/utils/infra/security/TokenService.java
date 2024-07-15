@@ -1,17 +1,18 @@
 package projeto.api.utils.infra.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-import projeto.api.utils.domain.user.User;
-import projeto.api.utils.infra.exception.TokenValidationException;
-import projeto.api.utils.infra.exception.ValidationException;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
+import projeto.api.utils.domain.user.User;
+import projeto.api.utils.infra.exception.TokenValidationException;
 
 @Service
 public class TokenService {
