@@ -51,7 +51,7 @@ class ShoppingListServiceTest {
         Long id = 1L;
         User user = new User(1L,"test","test@emai.com","123");
         List<Item> listItem = List.of(new Item("Item test","10 und"));
-        ShoppingList shoppingList = new ShoppingList(1L,"test name",user,listItem);
+        ShoppingList shoppingList = new ShoppingList(1L,"test name",user,listItem,false);
 
         when(repository.findByIdAndUser(anyLong(),any())).thenReturn(Optional.of(shoppingList));
 

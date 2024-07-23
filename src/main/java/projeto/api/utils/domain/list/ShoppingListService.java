@@ -34,8 +34,8 @@ public class ShoppingListService {
         return new ListDataDetails(shoppingList);
     }
 
-    public List<ListDataDetails> findAllByUser(User user) {
-        return repository.findAllByUser(user).stream().map(ListDataDetails::new).toList();
+    public List<ListDataDetails> findAllByUserAndNotArchived(User user) {
+        return repository.findAllByUserAndArchived(user,false).stream().map(ListDataDetails::new).toList();
     }
 
 }

@@ -84,13 +84,13 @@ class ShoppingListControllerTest {
 
     @Test
     @WithMockUser
-    void findAllTest() throws Exception {
+    void findAllNoArchivedTest() throws Exception {
         List<Item> items = List.of(new Item("item","10 und"));
         UserDataDetails userDetails = new UserDataDetails(1L,"test","test@email.com");
         ListDataDetails listDetails = new ListDataDetails(1L,"List test",items,userDetails);
         List<ListDataDetails> lists = List.of(listDetails);
 
-        when(service.findAllByUser(any())).thenReturn(lists);
+        when(service.findAllByUserAndNotArchived(any())).thenReturn(lists);
 
         var response = mvc.perform(get("/list/all")).andReturn().getResponse();
 

@@ -2,14 +2,7 @@ package projeto.api.utils.domain.list;
 
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,9 +28,12 @@ public class ShoppingList {
     @ElementCollection
     private List<Item> items;
 
+    private Boolean archived;
+
     public ShoppingList(ListRegisterData data, User user) {
         this.name = data.name();
         this.items = data.items();
         this.user = user;
+        this.archived = false;
     }
 }
