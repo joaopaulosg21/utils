@@ -15,10 +15,10 @@ public class DailyTaskService {
 
     private final List<DailyTaskValidations> validations;
 
-    public DailyTask create(User user, DailyTaskRegisterDataDTO data) {
+    public DailyTaskDataDetailsDTO create(User user, DailyTaskRegisterDataDTO data) {
         validations.forEach(v -> v.valid(data,user));
 
         DailyTask dailyTask = new DailyTask(data,user);
-        return repository.save(dailyTask);
+        return new DailyTaskDataDetailsDTO(repository.save(dailyTask));
     }
 }
