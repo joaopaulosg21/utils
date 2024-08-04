@@ -1,6 +1,8 @@
 package projeto.api.utils.domain.dailyTask;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projeto.api.utils.domain.dailyTask.validations.DailyTaskValidations;
 import projeto.api.utils.domain.user.User;
@@ -20,5 +22,9 @@ public class DailyTaskService {
 
         DailyTask dailyTask = new DailyTask(data,user);
         return new DailyTaskDataDetailsDTO(repository.save(dailyTask));
+    }
+
+    public Page<DailyTaskDataDetailsDTO> findAllByUser(Pageable pageable, User user) {
+        return repository.findAllByUser(pageable, user).map(DailyTaskDataDetailsDTO::new);
     }
 }

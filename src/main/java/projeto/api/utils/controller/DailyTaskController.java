@@ -2,12 +2,11 @@ package projeto.api.utils.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import projeto.api.utils.domain.dailyTask.DailyTaskDataDetailsDTO;
 import projeto.api.utils.domain.dailyTask.DailyTaskRegisterDataDTO;
@@ -29,5 +28,10 @@ public class DailyTaskController {
         URI uri = builder.path("/tasks/{id}").buildAndExpand(dailyData.id()).toUri();
 
         return ResponseEntity.created(uri).body(dailyData);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<DailyTaskDataDetailsDTO>> findAllByUser(@AuthenticationPrincipal User user, Pageable pageable) {
+        return ResponseEntity.ok(service.findAllByUser(pageable,user));
     }
 }
