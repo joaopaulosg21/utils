@@ -1,0 +1,1 @@
+ALTER TABLE monthly_expense ADD COLUMN amount NUMERIC
