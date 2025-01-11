@@ -3,10 +3,12 @@ package projeto.api.utils.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.math.BigDecimal;
 import java.time.Month;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class MonthlyExpenseControllerTest {
     private JacksonTester<MonthlyExpenseDetailsDTO> monthExpenseDetailsJson;
 
     @Autowired
+    private JacksonTester<List<MonthlyExpenseDetailsDTO>> ListMonthExpenseDetailsJson;
+
+    @Autowired
     private MockMvc mvc;
 
     @MockBean
@@ -56,8 +61,27 @@ public class MonthlyExpenseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(monthExpenseDataJson.write(data).getJson()))
                 .andReturn().getResponse();
-                
+
         var jsonExpected = monthExpenseDetailsJson.write(details).getJson();
+
+        assertThat(response.getContentAsString()).isEqualTo(jsonExpected);
+    }
+
+    @Test
+    @WithMockUser
+    void findAllByUserTest() throws Exception {
+        MonthlyExpenseDataDTO data = new MonthlyExpenseDataDTO(Month.APRIL, new BigDecimal(150.30), "test desc");
+        User user = new User(1L, "test name", "test@email.com", "test");
+        MonthlyExpenseDetailsDTO details = new MonthlyExpenseDetailsDTO(
+                new MonthlyExpense(data.month(), data.amount(), data.description(), user), user);
+        List<MonthlyExpenseDetailsDTO> list = List.of(details);
+
+        when(service.findAllByUser(any())).thenReturn(list);
+
+        var response = mvc.perform(get("/expenses")
+                .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+
+        var jsonExpected = ListMonthExpenseDetailsJson.write(list).getJson();
 
         assertThat(response.getContentAsString()).isEqualTo(jsonExpected);
     }
